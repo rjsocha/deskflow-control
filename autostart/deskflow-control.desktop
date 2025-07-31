@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Deskflow Control
+Exec=/usr/bin/deskflow-control
+Icon=/usr/share/icons/deskflow-control.png
+X-GNOME-AutoRestart=true

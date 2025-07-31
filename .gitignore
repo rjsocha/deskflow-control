@@ -1,0 +1,8 @@
+*.o
+*.h
+*.cpp
+Makefile
+deskflow-control
+.qmake.stash
+!src/*.h
+!src/*.cpp

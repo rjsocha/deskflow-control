@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Deskflow Control GDM Session
+Exec=/opt/deskflow-control/start
+Icon=/usr/share/icons/deskflow-control.png
+NoDisplay=true
+X-GNOME-AutoRestart=true
