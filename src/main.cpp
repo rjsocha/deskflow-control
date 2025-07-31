@@ -9,12 +9,12 @@
 #include <QTimer>
 #include <QElapsedTimer>
 #include <QEventLoop>
-#include <QThread>
+#include <QLockFile>
 #include "viewer.h"
 
 QProcess *deskflow = nullptr;
 
-bool waitForSystemTray(int timeoutMs = 10000, int intervalMs = 250) {
+bool waitForSystemTray(int timeoutMs = 2000, int intervalMs = 250) {
   QElapsedTimer timer;
   timer.start();
   QEventLoop loop;
@@ -31,13 +31,17 @@ bool waitForSystemTray(int timeoutMs = 10000, int intervalMs = 250) {
 }
 
 int main(int argc, char *argv[]) {
-  QThread::msleep(500);
+
+  QLockFile lock("/dev/shm/deskflow-control");
+  if (!lock.tryLock()) {
+    qWarning("another instance is already running ...");
+    return 0;
+  }
 
   QApplication app(argc, argv);
 
   if (!waitForSystemTray()) {
-    QMessageBox::critical(nullptr,"Deskflow Control", "Please make sure your desktop environment supports tray icons.");
-    return 1;
+    qWarning("Please make sure your desktop environment supports tray icons ...");
   }
 
   QIcon iconImage(":/icon/deskflow-control.png");
